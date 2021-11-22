@@ -2,16 +2,15 @@ import cors from 'cors';
 import express from 'express';
 
 import 'reflect-metadata';
-import { categoriesRoutes } from './routes/categories.routes';
-import { specificationsRoutes } from './routes/specification.routes';
+import { router } from './routes';
+
 // import './database/connection';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/categories', categoriesRoutes);
-app.use('/specifications', specificationsRoutes);
+app.use(router);
 
 const port = process.env.PORT || 3333;
 

@@ -1,8 +1,8 @@
 import { Category } from '../models/Category';
 
-interface ICreateCategoryDTO{
-  name: string,
-  description: string
+interface ICreateCategoryDTO {
+  name: string;
+  description: string;
 }
 
 interface ICategoryRepository {
