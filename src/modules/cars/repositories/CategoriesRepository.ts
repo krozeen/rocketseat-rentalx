@@ -1,21 +1,33 @@
-import { Category } from "../models/Category";
-import { ICategoryRepository, ICreateCategoryDTO } from "./ICategoriesRepository";
+import { Category } from '../models/Category';
+import {
+  ICategoryRepository,
+  ICreateCategoryDTO,
+} from './ICategoriesRepository';
 
-
-class CategoriesRepository implements ICategoryRepository{
+class CategoriesRepository implements ICategoryRepository {
   private categories: Category[];
 
-  constructor(){
+  // eslint-disable-next-line no-use-before-define
+  private static INSTANCE: CategoriesRepository;
+
+  private constructor() {
     this.categories = [];
   }
 
-  create({name, description}: ICreateCategoryDTO): void{
+  public static getInstance(): CategoriesRepository {
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+    return CategoriesRepository.INSTANCE;
+  }
+
+  create({ name, description }: ICreateCategoryDTO): void {
     const category: Category = new Category();
 
     Object.assign(category, {
-        name,
-        description,
-        created_at: new Date()
+      name,
+      description,
+      created_at: new Date(),
     });
 
     this.categories.push(category);
@@ -26,7 +38,7 @@ class CategoriesRepository implements ICategoryRepository{
   }
 
   findByName(name: string): Category {
-    const category = this.categories.find((category) => category.name === name);
+    const category = this.categories.find(category => category.name === name);
 
     return category;
   }
