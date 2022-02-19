@@ -1,12 +1,13 @@
+import 'reflect-metadata';
+import './database';
+import './shared/container';
+
 import cors from 'cors';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 
 import { router } from './routes';
 import swaggerFile from './swagger.json';
-
-import 'reflect-metadata';
-import './database';
 
 const app = express();
 

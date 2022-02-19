@@ -1,6 +1,8 @@
 /* eslint-disable array-callback-return */
+
 import { parse as csvParser } from 'csv-parse';
 import fs from 'fs';
+import { inject, injectable } from 'tsyringe';
 
 import { ICategoryRepository } from '../../repositories/ICategoriesRepository';
 
@@ -9,8 +11,12 @@ interface IImportCategory {
   description: string;
 }
 
+@injectable()
 class ImportCategoryUseCase {
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject('CategoriesRepository')
+    private categoryRepository: ICategoryRepository,
+  ) {}
 
   loadCategory(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
@@ -48,7 +54,7 @@ class ImportCategoryUseCase {
         throw new Error(`Category ${name} already exists`);
       }
 
-      this.categoryRepository.create({ name, description });
+      await this.categoryRepository.create({ name, description });
     });
   }
 }
