@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import { ImportCategoryUseCase } from './ImportCategoryUseCase';
 
-class ImportCategoryController {
+class ImportCategoriesController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { file } = request;
 
@@ -11,7 +11,7 @@ class ImportCategoryController {
 
     await importCategoryUseCase.execute(file);
 
-    return response.send();
+    return response.status(201).send();
   }
 }
-export { ImportCategoryController };
+export { ImportCategoriesController };

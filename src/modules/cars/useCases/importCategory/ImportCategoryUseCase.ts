@@ -18,7 +18,7 @@ class ImportCategoryUseCase {
     private categoryRepository: ICategoryRepository,
   ) {}
 
-  loadCategory(file: Express.Multer.File): Promise<IImportCategory[]> {
+  async loadCategory(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
 
@@ -48,7 +48,7 @@ class ImportCategoryUseCase {
     categories.map(async category => {
       const { name, description } = category;
 
-      const existsCategory = this.categoryRepository.findByName(name);
+      const existsCategory = await this.categoryRepository.findByName(name);
 
       if (existsCategory) {
         throw new Error(`Category ${name} already exists`);

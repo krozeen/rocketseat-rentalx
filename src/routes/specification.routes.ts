@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
-import { CreateCategoryController } from '../modules/cars/useCases/createCategory/CreateCategoryController';
+import { CreateSpecificationController } from '../modules/cars/useCases/createSpecification/CreateSpecificationController';
 
 const specificationsRoutes = Router();
 
-const createCategoryController = new CreateCategoryController();
+const createSpecificationController = new CreateSpecificationController();
 
-specificationsRoutes.post('/', createCategoryController.handle);
+specificationsRoutes.post('/', createSpecificationController.handle);
 
 // specificationsRoutes.get('/', (request, response) => {});
 
