@@ -4,6 +4,7 @@ import { parse as csvParser } from 'csv-parse';
 import fs from 'fs';
 import { inject, injectable } from 'tsyringe';
 
+import { AppError } from '../../../../errors/AppError';
 import { ICategoryRepository } from '../../repositories/ICategoriesRepository';
 
 interface IImportCategory {
@@ -51,7 +52,7 @@ class ImportCategoryUseCase {
       const existsCategory = await this.categoryRepository.findByName(name);
 
       if (existsCategory) {
-        throw new Error(`Category ${name} already exists`);
+        throw new AppError(`Category ${name} already exists`);
       }
 
       await this.categoryRepository.create({ name, description });
